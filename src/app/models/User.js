@@ -3,7 +3,8 @@ const User = {
         type: String,
         unique: true
     },
-    password: String,
+    hash: String,
+    salt: String,
     tasks: [Number]
 };
 
