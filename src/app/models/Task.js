@@ -1,8 +1,9 @@
 const Task = {
     id: {
-        type: Number,
+        type: String,
         unique: true
     },
+    username: String,
     name: String,
     description: String,
     done: Boolean,

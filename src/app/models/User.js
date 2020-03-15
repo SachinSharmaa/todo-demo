@@ -5,7 +5,7 @@ const User = {
     },
     hash: String,
     salt: String,
-    tasks: [Number]
+    tasks: [String]
 };
 
 module.exports = User;

@@ -8,17 +8,13 @@ exports.createUser = async (req, res, next) => {
 
         if (!user.username) {
             return res.status(422).json({
-                errors: {
-                    username: 'is required',
-                },
+                error : 'username is missing',
             });
         }
 
         if (!user.password) {
             return res.status(422).json({
-                errors: {
-                    password: 'is required',
-                },
+                error : 'password is missing',
             });
         }
         const savedUser = await USER_SERVICE.createUser(user);
@@ -68,9 +64,9 @@ exports.login = (req, res, next) => {
 }
 
 exports.getUser = async (req, res, next) => {
-    const id = req.payload.id;
+    const username = req.payload.username;
     try {
-        return res.status(200).json(await USER_SERVICE.getUserById(id));
+        return res.status(200).json(await USER_SERVICE.getUser(username));
     } catch (e) {
         return res.status(400).json({
             error: e.message
