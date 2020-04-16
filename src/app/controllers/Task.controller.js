@@ -69,7 +69,7 @@ exports.deleteTask = async (req, res, next) => {
         const deletedCount = await TASK_SERVICE.deleteTask(taskId, username);
         return res.status(200).json({'count': deletedCount});
     } catch (e) {
-        return res.status(400).json({
+    return res.status(400).json({
             error: e.message
         });
     }

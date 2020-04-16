@@ -8,13 +8,13 @@ exports.createUser = async (req, res, next) => {
 
         if (!user.username) {
             return res.status(422).json({
-                error : 'username is missing',
+                error: 'username is missing',
             });
         }
 
         if (!user.password) {
             return res.status(422).json({
-                error : 'password is missing',
+                error: 'password is missing',
             });
         }
         const savedUser = await USER_SERVICE.createUser(user);
@@ -54,9 +54,7 @@ exports.login = (req, res, next) => {
             const user = passportUser;
             user.token = passportUser.generateJWT();
 
-            return res.status(200).json({
-                user: user.toAuthJSON()
-            });
+            return res.status(200).json(user.toAuthJSON());
         }
 
         return res.status(400).json(info);

@@ -29,7 +29,7 @@ const addTaskToUser = async (taskId, username) => {
 
 exports.getTask = async (taskId) => {
     try {
-        const task = await TASK_REPOSITORY.findOne({ 'id': taskId });
+        const task = await TASK_REPOSITORY.findOne({ 'id': taskId }, {"_id" : 0, "_v": 0});
         return task;
     } catch (e) {
         throw Error("OOPS Could Not Fetch Task" + e.errmsg);

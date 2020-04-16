@@ -18,11 +18,10 @@ exports.createUser = async (user) => {
 exports.getUser = async (username) => {
     try {
         const user = await USER_REPOSITORY.findOne({ 'username': username });
-        await getTasksDetails(user);
+        const tasks = await getTasksDetails([...user.tasks]);
         return {
-            user: user.username,
-            tasks: user.tasks,
-        };
+            username: user.username,
+            tasks: tasks        };
     } catch (e) {
         throw Error("OOPS Could Not Fetch User " + e.errmsg)
     }
@@ -42,14 +41,14 @@ exports.addTask = async (username, taskId) => {
     }
 }
 
-const getTasksDetails = async user => {
+const getTasksDetails = async taskIds => {
     try {
-        const taskIds = [...user.tasks];
-        user.tasks = [];
+        tasks = [];
         await ASYNC_FOR_EACH.asyncForEach(taskIds, async taskId => {
             const task = await TASK_SERVICE.getTask(taskId);
-            user.tasks.push(task);
+            tasks.push(task);
         });
+        return tasks;
     } catch (e) {
         throw Error("OOPS Could Not Fetch User Tasks " + e.errmsg)
     }
